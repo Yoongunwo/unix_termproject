@@ -37,6 +37,20 @@ define test_case
 endef
 test: TC1_INP := 3 Hello Enemy abc 3 add Run list quit
 test: TC1_OUT := LinkedList [ Run abc Eneymy Hello ] LinkedList is cleared! quit!
+test: TC2_INP := 1 Levitating 4 list play clear quit
+test: TC2_OUT := LinkedList [ Levitating ] Levitating is now playing! LinkedList is cleared!LinkedList is cleared! quit!
+test: TC3_INP := 3 Hello Enemy abc 14 list play next play add Sunshine add Run list next next next next next play quit
+test: TC3_OUT := LinkedList [ abc Enemy Hello ]
+abc is now playing!
+Enemy is now playing!
+LinkedList [ Run Sunshine abc Enemy Hello ]
+Hello is now playing!
+LinkedList is cleared!
+quit!
+
+test:
 
 test:
 	@$(call test_case,$(TC1_INP),$(TC1_OUT))
+	@$(call test_case,$(TC2_INP),$(TC2_OUT))
+	@$(call test_case,$(TC3_INP),$(TC3_OUT))
