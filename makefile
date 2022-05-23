@@ -13,7 +13,7 @@ $(info $(TARGET))
 all: $(BUILD)/$(TARGET)
 
 $(BUILD)/$(TARGET): $(obj)
-        $(CC) $^ -o $@
+	$(CC) $^ -o $@
 
 $(obj): | $(BUILD)
 
