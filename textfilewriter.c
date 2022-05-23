@@ -7,7 +7,32 @@ void create_music_titles(FILE* stream) {
 }
 
 void write_file(char* file_name) {
-	
+	FILE* fp = fopen(file_name, "w");
+
+	if(fp == NULL){
+		printf("Can't Find File!\n");
+	}	
+	else{
+		long num_of_song = 0;
+		const char* arr[50];
+		char str[100];
+
+		printf("How many songs?: ");
+		scanf("%ld", &num_of_song);
+		gets(str); // delete trash value;
+
+		for(int i=0; i<num_of_song; i++){
+			gets(str);			
+			arr[i] = str;
+			printf("%d count\n", i);
+		}
+		
+		fprintf(fp, "%ld", num_of_song);
+		for (int i=0; i<num_of_song; i++){
+			fprintf(fp,"%s", arr[i]);
+		}
+			
+	}
 	return;
 }
 
@@ -44,4 +69,5 @@ int main() {
 
 	read_file(file_name);
 	read_file("sexy.txt");
+	write_file(file_name);
 }
