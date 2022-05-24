@@ -1,4 +1,3 @@
-//
 #include <stdio.h>
 
 #include <stdbool.h>
@@ -12,7 +11,6 @@ bool empty(){
 	if(p->next == NULL) return True;
 	else return False;
 }
-
 
 size_t size(){
 	size_t result = 0;
@@ -32,9 +30,28 @@ void print(){
 	}
 }
 
-void print_file(FILE* stream);
+void print_file(FILE* stream){
+	char file_buff[100];
+	stream = fopen("makefile", "r");
 
-void clear(); // linked list clear 
+	while(fgets(file_buff, sizeof(file_buff), stream) != NULL){
+		printf("%s", file_buff);
+		memset(file_buff, 0, sizeof(file_buff));
+	}
+	fclose(stream);
+}
+
+void clear(){
+	Node* p = _head;
+	while(p != NULL){
+		Node* nextNode = p->next;
+		p->data = NULL;
+		p->next = NULL;
+		p = nextNode;
+	}
+	_head = NULL;
+	_tail = NULL;
+}
 
 Node* append_left(size_t n, char new_data[n]){
 	for(size_t i = n-1;i<=0;--i){
@@ -45,18 +62,16 @@ Node* append_left(size_t n, char new_data[n]){
 	}
 }
 
-Node* insert_after(Node* cur_node, Node* new_node){ // cur node right append
-        Node* curNode = _cur_node;
-	Node* nextNode = curNode->next;
-	for(size_t i = 0;i<n;++i){
-                Node* newNode;
-                newNode->data = new_data[i];
-                newNode->prev = curNode;
-                newNode->next = NULL;
-        }
+Node* insert_after(Node* cur_node, Node* new_node){
+        Node* curNode = cur_node;
+	Node* newNode = new_node;
+
+	newNode->next = curNode->next;
+	newNode->prev = curNode;
+	curNode->next = newNode;
 }
 
-Node* append(size_t n, char new_data[n]){ //tail
+Node* append(size_t n, char new_data[n]){
 	for(size_t i = 0;i<n;++i){
                 Node* newNode;
                 newNode->data = new_data[i];
@@ -68,10 +83,15 @@ Node* append(size_t n, char new_data[n]){ //tail
 Node* delete_node(Node* cur_node){
 	Node* prevNode;
 	Node* nextNode;
+	
 	prevNode = cur_node->prev;
 	nextNode = cur_node->next;
 	prevNode->next = nextNode;
 	nextNode->prev = prevNode;
+
+	cur_node->data = NULL;
+	cur_node->next = NULL;
+	cur_node->prev = NULL;
 }
 
 Node* delete(char* data){
@@ -93,20 +113,20 @@ Node* get_node(size_t index){
 
 Node* first(){
 	Node* p = _head;
-	return p->data;
+	return p;
 }
 
 Node* last(){
 	Node* p = _tail;
-        return p->data;
+        return p;
 }
 
 Node* next(){
 	Node* p = _cur_node;
-        return p->next->data;
+        return p;
 }
 
 Node* prev(){
 	Node* p = _cur_node;
-        return p->prev->data;
+        return p;
 }
