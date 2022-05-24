@@ -1,3 +1,6 @@
+#include <stddef.h>
+#include "node.h"
+
 static Node* _head = NULL;
 
 static Node* _tail = NULL;
