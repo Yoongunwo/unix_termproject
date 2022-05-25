@@ -4,6 +4,8 @@
 
 #include <stddef.h>
 
+#include <stdlib.h>
+
 #include "node.h"
 
 bool empty(){
@@ -31,14 +33,19 @@ void print(){
 }
 
 void print_file(FILE* stream){
-	char file_buff[100];
-	stream = fopen("makefile", "r");
-
-	while(fgets(file_buff, sizeof(file_buff), stream) != NULL){
-		printf("%s", file_buff);
-		memset(file_buff, 0, sizeof(file_buff));
+	int size;
+	char* buffer;
+	fseek(stream, 0, SEEK_END);
+	size = ftell(stream);
+	buffer = malloc(size + 1);
+	memset(buffer, 0, size + 1);
+	
+	while(fgets(file_buff, size + 1, stream) != NULL){
+		printf("%s", buffer);
+		memset(buffer, 0, size + 1);
 	}
 	fclose(stream);
+	free(buffet);
 }
 
 void clear(){
@@ -60,6 +67,7 @@ Node* append_left(size_t n, char new_data[n]){
 		newNode->prev = NULL;
 		newNode->next = _head;
 	}
+	return newNode;
 }
 
 Node* insert_after(Node* cur_node, Node* new_node){
@@ -69,6 +77,7 @@ Node* insert_after(Node* cur_node, Node* new_node){
 	newNode->next = curNode->next;
 	newNode->prev = curNode;
 	curNode->next = newNode;
+	return newNode;
 }
 
 Node* append(size_t n, char new_data[n]){
@@ -78,6 +87,7 @@ Node* append(size_t n, char new_data[n]){
                 newNode->prev = _tail;
                 newNode->next = NULL;
         }
+	return _tail;
 }
 
 Node* delete_node(Node* cur_node){
