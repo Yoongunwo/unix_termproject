@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include "linkedlist.h"
 
 static Node* _head = NULL;
@@ -25,8 +26,8 @@ size_t size(){
 void print(){
         Node* p = _head;
         while(p != NULL){
-                printf("%d ",p->data);
-                p = p->next;
+		p = p->next;
+                printf("%s ",p->data);
         }
 }
 
@@ -56,14 +57,15 @@ void clear(){
         }
         _head = NULL;
         _tail = NULL;
+	printf("LinkedList is cleared!\n");
 }
 
 Node* append_left(size_t n, char new_data[n]){
         for(size_t i = n-1;i<=0;--i){
-                Node* newNode;
+                Node* newNode = (Node*)malloc(sizeof(Node));
                 newNode->data = new_data[i];
-                newNode->prev = NULL;
-                newNode->next = _head;
+		newNode->next = _head->next;
+                newNode->prev = _head;
         }
         return newNode;
 }
@@ -80,10 +82,10 @@ Node* insert_after(Node* cur_node, Node* new_node){
 
 Node* append(size_t n, char new_data[n]){
         for(size_t i = 0;i<n;++i){
-                Node* newNode;
+                Node* newNode = (Node*)malloc(sizeof(Node));
                 newNode->data = new_data[i];
-                newNode->prev = _tail;
-                newNode->next = NULL;
+                newNode->prev = _tail->prev;
+                newNode->next = _tail;
         }
         return _tail;
 }
@@ -105,62 +107,40 @@ Node* delete_node(Node* cur_node){
 Node* delete(char* data){
         Node* p = _head;
         while(p != NULL){
+		p = p->next;
                 if(p->data == data){
                         break;
                 }
-                p = p->next;
         }
         delete_node(p);
 }
 
 Node* get_node(size_t index){
-        Node* p = _head->next;
-        for(size_t i = 0;i<index;++i) p = p->next;
+        Node* p = _head;
+        for(size_t i = 0;i<=index;++i) p = p->next;
         return p;
 }
 
 Node* first(){
         Node* p = _head;
+	if(p->next != NULL) p = p->next;
         return p;
 }
 
 Node* last(){
         Node* p = _tail;
+	if(p->prev != NULL) p = p->prev;
         return p;
 }
 
 Node* next(){
         Node* p = _cur_node;
+	if(p->next != NULL) p = p->next;
         return p;
 }
 
 Node* prev(){
         Node* p = _cur_node;
+	if(p->prev != NULL) p = p->prev;
         return p;
-}
-
-int main(){
-	int paly_num;
-	int instruction_num:;
-	scanf("%d",play_num);
-	char* strArr[play_num];
-	for(int i = 0; i< play_num; ++i){
-		scanf("%s",strArr[i]);
-	}
-	//append(play_num, strArr[play_num]);	
-	scanf("%d",instruction_num);
-	char* str;
-	for(int i = 0;i<intstruction_num;++i){
-		scanf("%s",str);
-		//file write
-		//add - left_append
-		//list - print list
-		//play - print("%s is now playing!",cur_node);
-		//next - cur_node = cur_node->next;
-		//	 if(cur_node == NULL) cur_node = _head;
-		//clear - print("LinkedList is cleared!");
-		//quit - print("LinkedList is cleared!\nquit!");
-	}
-	//print_file
-	return 0;
 }
