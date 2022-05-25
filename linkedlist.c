@@ -1,4 +1,9 @@
+
 #include "linkedlist.h"
+
+#include <stddef.h>
+#include "node.h"
+
 
 static Node* _head = NULL;
 

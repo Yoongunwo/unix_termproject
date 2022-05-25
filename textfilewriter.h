@@ -1,9 +1,16 @@
 #include <stdio.h>
 
-#define MAX_TITLE_SIZE 50
+#define max_title_size 50
 
-void create_music_titles(FILE* stream);
+void create_music_titles(FILE* stream) {
+	return;
+}
 
-void read_file(char* file_name);
+void write_file(char* file_name) {
+	return;
+}
 
-void write_file(char* file_name);
+
+void read_file(char* file_name) {
+	return;
+}
