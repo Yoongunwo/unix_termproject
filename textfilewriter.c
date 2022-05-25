@@ -1,6 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-#define MAX_TITLE_SIZE 50
+#define MAX_TITLE_SIZE 50 
+// We assume TOTAL_NUM_OF_MUSIC is less than 50
 
 void create_music_titles(FILE* stream) {
 	return;
@@ -14,24 +16,22 @@ void write_file(char* file_name) {
 	}	
 	else{
 		long num_of_song = 0;
-		const char* arr[50];
-		char str[100];
+		char* arr[MAX_TITLE_SIZE] = {0}; 
 
 		printf("How many songs?: ");
-		scanf("%ld", &num_of_song);
-		gets(str); // delete trash value;
+		scanf("%ld\n", &num_of_song);
 
 		for(int i=0; i<num_of_song; i++){
-			gets(str);			
-			arr[i] = str;
-			printf("%d count\n", i);
+			*(arr + i) = (char*)malloc(sizeof(char*));
+			fgets(arr[i], MAX_TITLE_SIZE, stdin);
 		}
 		
-		fprintf(fp, "%ld", num_of_song);
+		fprintf(fp, "%ld\n", num_of_song);
+
 		for (int i=0; i<num_of_song; i++){
 			fprintf(fp,"%s", arr[i]);
+			free(arr[i]);
 		}
-			
 	}
 	return;
 }
@@ -46,22 +46,28 @@ void read_file(char* file_name) {
 	}
 
 	else{
-		int num_of_song;
-		int max = 100;
-		char line[max];
-		char *pLine;
-		int counter = 1;
-		fscanf(fp, "%d", &num_of_song);
-
-		printf("Total number of songs is %d\n", num_of_song);
-		pLine = fgets(line, max, fp); // delete trash value
-		while(!feof(fp) && (counter <= num_of_song)){
-			pLine = fgets(line, max, fp);
-			printf("%d: %s", counter,pLine);
-			counter++;
+		int num_of_song = -1;
+		char* title_of_song[MAX_TITLE_SIZE] = {0};
+		fscanf(fp, "%d\n", &num_of_song);
+		if(num_of_song == -1){
+			printf("Empty File!\n");
+			return;
 		}
+
+		for(int i=0; i<num_of_song; i++){
+			*(title_of_song + i) = (char*)malloc(sizeof(char*));
+			fgets(title_of_song[i], MAX_TITLE_SIZE, fp); 
+		}
+
+		for (int i=0; i<num_of_song; i++){
+			printf("%s", title_of_song[i]);
+			free(*(title_of_song+i));
+		}
+
 		fclose(fp);
+		return;
 	}
+	return;
 
 }
 int main() {
