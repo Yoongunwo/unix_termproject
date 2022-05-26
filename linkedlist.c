@@ -102,6 +102,7 @@ Node* delete_node(Node* cur_node){
         cur_node->data = NULL;
         cur_node->next = NULL;
         cur_node->prev = NULL;
+	return prevNode;
 }
 
 Node* delete(char* data){
