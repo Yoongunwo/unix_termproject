@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "linkedlist.h"
 
 #define MAX_TITLE_SIZE 50 
 // We assume TOTAL_NUM_OF_MUSIC is less than 50
@@ -24,7 +25,7 @@ void create_music_titles(FILE* stream) {
 	else{
 		int num_of_song = -1;
 		char* title_of_song[MAX_TITLE_SIZE] = {0};
-		fscanf(fp, "%d\n", &num_of_song);
+		fscanf(stream, "%d\n", &num_of_song);
 
 		// If file is empty
 		if(num_of_song == -1){
@@ -34,8 +35,8 @@ void create_music_titles(FILE* stream) {
 
 		for(int i=0; i<num_of_song; i++){
 			*(title_of_song + i) = (char*)malloc(sizeof(char*));
-			fgets(title_of_song[i], MAX_TITLE_SIZE, fp); 
-			append_left(MAX_TITLE_SIZE, title_of_song[i];
+			fgets(title_of_song[i], MAX_TITLE_SIZE, stream); 
+			append_left(MAX_TITLE_SIZE, title_of_song[i]);
 		}
 
 		for (int i=0; i<num_of_song; i++){
