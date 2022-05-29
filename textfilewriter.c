@@ -19,6 +19,7 @@ void create_music_titles(FILE* stream) {
 			scanf("%s", music_name);
 			append_left(MAX_TITLE_SIZE, music_name);
 		}
+		return;
 	}
 	else{
 		int num_of_song = -1;
@@ -41,9 +42,9 @@ void create_music_titles(FILE* stream) {
 			printf("%s", title_of_song[i]);
 			free(*(title_of_song+i));
 		}
-
 		return;
 	}
+	return;
 }
 
 
