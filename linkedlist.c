@@ -1,3 +1,4 @@
+
 #include <stddef.h>
 #include "linkedlist.h"
 
@@ -16,7 +17,9 @@ bool empty(){
 size_t size(){
         size_t result = 0;
         Node* p = _head;
+
         while(p->next != _tail){
+
                 p = p->next;
                 ++result;
         }
@@ -25,12 +28,14 @@ size_t size(){
 
 void print(){
         Node* p = _head;
+
 	printf("LinkedList [ ");
         while(p != NULL){
 		p = p->next;
                 printf("%s ",p->data);
         }
 	printf("]\n");
+
 }
 
 void print_file(FILE* stream){
@@ -50,16 +55,21 @@ void print_file(FILE* stream){
 }
 
 void clear(){
+
         Node* p = _head->next;
+
         while(p != NULL){
                 Node* nextNode = p->next;
                 p->data = NULL;
                 p->next = NULL;
+
 		p->prev = NULL;
+
                 p = nextNode;
         }
         _head = NULL;
         _tail = NULL;
+
 	printf("LinkedList is cleared!\n");
 }
 
@@ -90,6 +100,7 @@ Node* insert_after(Node* cur_node, Node* new_node){
         newNode->next = curNode->next;
         newNode->prev = curNode;
         curNode->next = newNode;
+
         return cur_node;
 }
 
@@ -123,46 +134,60 @@ Node* delete_node(Node* cur_node){
         cur_node->data = NULL;
         cur_node->next = NULL;
         cur_node->prev = NULL;
+
 	return prevNode;
+
 }
 
 Node* delete(char* data){
         Node* p = _head;
         while(p != NULL){
+
 		p = p->next;
                 if(p->data == data){
                         break;
                 }
+
         }
         delete_node(p);
 }
 
 Node* get_node(size_t index){
+
         Node* p = _head;
         for(size_t i = 0;i<=index;++i) p = p->next;
+
         return p;
 }
 
 Node* first(){
         Node* p = _head;
+
 	if(p->next != NULL) p = p->next;
+
         return p;
 }
 
 Node* last(){
         Node* p = _tail;
+
 	if(p->prev != NULL) p = p->prev;
+
         return p;
 }
 
 Node* next(){
         Node* p = _cur_node;
+
 	if(p->next != NULL) p = p->next;
+
         return p;
 }
 
 Node* prev(){
         Node* p = _cur_node;
+
 	if(p->prev != NULL) p = p->prev;
         return p;
 }
+
