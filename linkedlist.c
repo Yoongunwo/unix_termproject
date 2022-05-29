@@ -10,8 +10,8 @@ static Node* _cur_node = NULL;
 
 bool empty(){
         Node* p = _head;
-        if(p->next == NULL) return True;
-        else return False;
+        if(p->next == NULL) return true;
+        else return false;
 }
 
 size_t size(){
@@ -51,7 +51,7 @@ void print_file(FILE* stream){
                 memset(buffer, 0, size + 1);
         }
         fclose(stream);
-        free(buffet);
+        free(buffer);
 }
 
 void clear(){

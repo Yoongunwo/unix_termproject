@@ -84,10 +84,4 @@ void read_file(char* file_name) {
 	}
 
 }
-int main() {
-	char* file_name = "./Text.txt";
 
-	read_file(file_name);
-	read_file("sexy.txt");
-	write_file(file_name);
-}
