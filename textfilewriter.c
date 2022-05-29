@@ -8,12 +8,44 @@ void print_file(FILE* stream);
 
 
 void create_music_titles(FILE* stream) {
-	char music_name[10];
-	scanf("%s", music_name);
-	fprintf(stream, "%s", music_name);
-	
-	return;
+	if (stream == NULL) {
+		// When, Can't find the file
+		int start_music_num;
+		printf("Number of music: "); 
+		scanf("%d", &start_music_num);
+
+		char music_name[MAX_TITLE_SIZE];
+		for (int i=0; i<start_music_num; i++){
+			scanf("%s", music_name);
+			append_left(MAX_TITLE_SIZE, music_name);
+		}
+	}
+	else{
+		int num_of_song = -1;
+		char* title_of_song[MAX_TITLE_SIZE] = {0};
+		fscanf(fp, "%d\n", &num_of_song);
+
+		// If file is empty
+		if(num_of_song == -1){
+			printf("Empty File!\n");
+			return;
+		}
+
+		for(int i=0; i<num_of_song; i++){
+			*(title_of_song + i) = (char*)malloc(sizeof(char*));
+			fgets(title_of_song[i], MAX_TITLE_SIZE, fp); 
+			append_left(MAX_TITLE_SIZE, title_of_song[i];
+		}
+
+		for (int i=0; i<num_of_song; i++){
+			printf("%s", title_of_song[i]);
+			free(*(title_of_song+i));
+		}
+
+		return;
+	}
 }
+
 
 void write_file(char* file_name) {
 	FILE* fp = fopen(file_name, "a");
@@ -77,7 +109,6 @@ void read_file(char* file_name) {
 			free(*(command + i));
 		}
 
-		
 		fclose(fp);
 		return;
 
