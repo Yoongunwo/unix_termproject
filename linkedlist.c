@@ -16,7 +16,7 @@ bool empty(){
 size_t size(){
         size_t result = 0;
         Node* p = _head;
-        while(p != _tail){
+        while(p->next != _tail){
                 p = p->next;
                 ++result;
         }
@@ -25,10 +25,12 @@ size_t size(){
 
 void print(){
         Node* p = _head;
+	printf("LinkedList [ ");
         while(p != NULL){
 		p = p->next;
                 printf("%s ",p->data);
         }
+	printf("]\n");
 }
 
 void print_file(FILE* stream){
@@ -48,11 +50,12 @@ void print_file(FILE* stream){
 }
 
 void clear(){
-        Node* p = _head;
+        Node* p = _head->next;
         while(p != NULL){
                 Node* nextNode = p->next;
                 p->data = NULL;
                 p->next = NULL;
+		p->prev = NULL;
                 p = nextNode;
         }
         _head = NULL;
@@ -61,13 +64,23 @@ void clear(){
 }
 
 Node* append_left(size_t n, char new_data[n]){
-        for(size_t i = n-1;i<=0;--i){
-                Node* newNode = (Node*)malloc(sizeof(Node));
-                newNode->data = new_data[i];
-		newNode->next = _head->next;
-                newNode->prev = _head;
-        }
-        return newNode;
+	Node* newNode = (Node*)malloc(sizeof(Node));\
+	newNode->data = new_data;
+	newNode->prev = _head;
+	_head->next = newNode;
+
+	if(size() == 0){
+        	newNode->next = _tail;
+		_tail->prev = newNode;
+	}
+	else{
+		Node* nextNode;
+		nextNode = _head->next;
+		nextNode->prev = newNode;
+		newNode->next = nextNode;
+	}
+	_cur_node = newNode;
+        return _cur_node;
 }
 
 Node* insert_after(Node* cur_node, Node* new_node){
@@ -77,17 +90,25 @@ Node* insert_after(Node* cur_node, Node* new_node){
         newNode->next = curNode->next;
         newNode->prev = curNode;
         curNode->next = newNode;
-        return newNode;
+        return cur_node;
 }
 
 Node* append(size_t n, char new_data[n]){
-        for(size_t i = 0;i<n;++i){
-                Node* newNode = (Node*)malloc(sizeof(Node));
-                newNode->data = new_data[i];
-                newNode->prev = _tail->prev;
-                newNode->next = _tail;
+        Node* newNode = (Node*)malloc(sizeof(Node));\
+        newNode->data = new_data;
+	newNode->next = _tail;
+
+        if(size() == 0){
+                _head->next = newNode;
+                newNode->prev = _head;
         }
-        return _tail;
+        else{
+                newNode->prev = _tail->prev;
+        }
+	_tail->prev = newNode;
+        _cur_node = newNode;
+        return _cur_node;
+
 }
 
 Node* delete_node(Node* cur_node){
