@@ -37,7 +37,6 @@ void print_file(FILE* stream){
 		size_t num_of_song = size();
 		fprintf(stream, "%d\n", num_of_song);
 		Node* p = last();
-
 		while(p != first()->prev){
 			fprintf(stream, "%s\n", p->data);
 			p = p->prev;
