@@ -27,13 +27,19 @@ void create_music_titles(FILE* stream) {
 
 
 void write_file(char* file_name) {
-	FILE* fp = fopen(file_name, "a");
-
+	FILE* fp = fopen(file_name, "w");
 	if(fp == NULL){
 		printf("Can't Find File!\n");
 	}	
 	else{
-		create_music_titles(fp);
+		size_t num_of_song = size();
+		fprintf("%zu\n", num_of_song);
+		Node* p = first();
+        while(p -> next != last()){
+			fputs(p->next->data, fp);
+			fputs("\n", fp);
+        	p = p->next;
+		}
 		fclose(fp);
 	}
 	return;
