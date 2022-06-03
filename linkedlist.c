@@ -84,13 +84,11 @@ Node* append_left(size_t n, char new_data[n]){
 }
 
 Node* insert_after(Node* cur_node, Node* new_node){
-        Node* curNode = cur_node;
-        Node* newNode = new_node;
-
-        newNode->next = curNode->next;
-        newNode->prev = curNode;
-        curNode->next = newNode;
-        return new_node;
+        cur_node->prev = new_node;
+	cur_node->next = new_node->next;
+	cur_node->prev->next = cur_node;
+        cur_node->next->prev = cur_node;
+        return cur_node;
 }
 
 Node* append(size_t n, char new_data[n]){
@@ -133,22 +131,28 @@ Node* delete(char* data){
 }
 
 Node* get_node(size_t index){
-        Node* p = _head;
-	Node* temp;
-	size_t count = 0;
-	while(count <= index){
-		temp = p;
+        Node* p = first();
+	int find_node = 1;
+	while(finde_node != index){
 		p = p->next;
-		if(p != _cur_node) ++count;
-		else{
-			temp->next = p->next;
-			p->next->prev = temp;
-		}
+		++find_node;
 	}
-	_cur_node->prev = temp;
-	_cur_node->next = p;
-        
-        return p;
+	Node* cu = first();
+	int cur = 1;
+	while(cu != _cur_node){
+		cu = cu->next;
+		++cur;
+	}
+	_cur_node->prev->next = _cur_node->next;
+	_cur_node->next->prev = _cur_node->prev;
+        if(find_node > cur){
+		insert_after(_cur_node, p);
+	}
+	else if(find_node < cur){
+		insert_after(_cur_node, p->prev);
+	}
+	else return _cur_node;
+	return p;
 }
 
 Node* first(){
