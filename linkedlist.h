@@ -4,6 +4,8 @@
 
 #include <stddef.h>
 
+#include <stdlib.h>
+
 #include "node.h"
 
 bool empty();
@@ -11,6 +13,8 @@ bool empty();
 size_t size();
 
 void print();
+
+void play_music();
 
 void print_file(FILE* stream);
 
