@@ -32,7 +32,11 @@ void write_file(char* file_name) {
 		printf("Can't Find File!\n");
 	}	
 	else{
-		create_music_titles(fp);
+		Node* p = _head;
+        while(p -> next != _tail){
+			fputs(p->next->data, fp);
+        	p = p->next;
+		}
 		fclose(fp);
 	}
 	return;
