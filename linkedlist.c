@@ -148,14 +148,12 @@ Node* delete(char* data){
 Node* get_node(size_t index){ //move
         Node* p = _head;
 	Node* temp;
-	bool cur_node_in = false;
 	size_t count = 0;
 	while(count <= index){
 		temp = p;
 		p = p->next;
 		if(p != _cur_node) ++count;
 		else{
-			cur_node_in = true;
 			temp->next = p->next;
 			p->next->prev = temp;
 		}
