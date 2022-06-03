@@ -60,19 +60,22 @@ void print_file(FILE* stream){
 }
 
 void clear(){
-
-        Node* p = _head->next;
-
-        while(p != NULL){
-                Node* nextNode = p->next;
-                p->data = NULL;
-                p->next = NULL;
-            		p->prev = NULL;
-                p = nextNode;
-        }
-        _head = NULL;
-        _tail = NULL;
-	      printf("LinkedList is cleared!\n");
+	if(_head != NULL){
+		Node *p = first();
+		Node *q = p->next;
+		while(p!= _tail){
+			free(p->data);
+			p = q;
+			q = q->next;
+		}
+		free(_head);
+		free(_tail);
+		free(_cur_node);
+		_head = NULL;
+		_tail = NULL;
+		_cur_node = NULL;
+	}
+	printf("LinkedList is cleared!\n");
 }
 
 Node* append_left(size_t n, char new_data[n]){
@@ -83,18 +86,18 @@ Node* append_left(size_t n, char new_data[n]){
         _tail = (Node*)malloc(sizeof(Node));
         _head = (Node*)malloc(sizeof(Node));
         _cur_node = (Node*)malloc(sizeof(Node));
-        _cur_node = newNode;
-        _tail->prev = newNode;
+        
+	_tail->prev = newNode;
         newNode->next = _tail;
         _head->next = newNode;
-        _head->next->prev = _head;
+        newNode->prev = _head;
 
     }
     else{
         newNode->next = _head->next;
-        _head->next->prev = newNode;
         newNode->prev = _head;
-        newNode->prev->next = newNode;
+        _head->next->prev = newNode;
+        _head->next = newNode;
     }
     newNode->data = new_data;
     _cur_node = newNode;
