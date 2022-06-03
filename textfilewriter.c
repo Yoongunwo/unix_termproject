@@ -18,7 +18,7 @@ void create_music_titles(FILE* stream) {
 		for(int i=0; i<num_of_song; i++){
 			*(title_of_song + i) = (char*)malloc(sizeof(char*));
 			fgets(title_of_song[i], MAX_TITLE_SIZE, stream); 
-			//append_left(MAX_TITLE_SIZE, title_of_song[i]);
+			append_left(MAX_TITLE_SIZE, title_of_song[i]);
 		}
 
 		// Check title_of_song and free dynamic alloc
@@ -101,9 +101,9 @@ void read_file(char* file_name) {
 
 }
 
+/*
 int main(){
 	FILE* fp = fopen("Text.txt", "r");
-	create_music_titles(stdin);
 	create_music_titles(fp);
-	create_music_titles(stdin);
 }
+*/
