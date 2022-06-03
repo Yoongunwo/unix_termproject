@@ -3,35 +3,17 @@
 #include "linkedlist.h"
 
 #define MAX_TITLE_SIZE 50 
-// We assume TOTAL_NUM_OF_MUSIC is less than 50
-// "print_file" will be used in read_file.
-void print_file(FILE* stream);
 
 
 void create_music_titles(FILE* stream) {
-	if (stream == NULL) {
-		// When, Can't find the file
-		int start_music_num;
-		printf("Number of music: "); 
-		scanf("%d", &start_music_num);
-
-		char music_name[MAX_TITLE_SIZE];
-		for (int i=0; i<start_music_num; i++){
-			scanf("%s", music_name);
-			append_left(MAX_TITLE_SIZE, music_name);
-		}
-		return;
-	}
+	char num_of_song = fgetc(stream) - 30;
+	if (feof(stream)) return;
 	else{
-		int num_of_song = -1;
 		char* title_of_song[MAX_TITLE_SIZE] = {0};
-		fscanf(stream, "%d\n", &num_of_song);
-
-		// If file is empty
-		if(num_of_song == -1){
-			printf("Empty File!\n");
-			return;
-		}
+		
+		// \n 제거
+		char trash_value[2];		
+		fgets(trash_value, MAX_TITLE_SIZE, stream);
 
 		for(int i=0; i<num_of_song; i++){
 			*(title_of_song + i) = (char*)malloc(sizeof(char*));
@@ -39,6 +21,7 @@ void create_music_titles(FILE* stream) {
 			append_left(MAX_TITLE_SIZE, title_of_song[i]);
 		}
 
+		// Check title_of_song and free dynamic alloc
 		for (int i=0; i<num_of_song; i++){
 			printf("%s", title_of_song[i]);
 			free(*(title_of_song+i));
@@ -118,3 +101,9 @@ void read_file(char* file_name) {
 
 }
 
+/*
+int main(){
+	FILE* fp = fopen("Text.txt", "r");
+	create_music_titles(fp);
+}
+*/
