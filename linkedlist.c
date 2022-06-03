@@ -132,7 +132,7 @@ Node* delete(char* data){
         return _cur_node;
 }
 
-Node* get_node(size_t index){ //move
+Node* get_node(size_t index){
         Node* p = _head;
 	Node* temp;
 	size_t count = 0;
