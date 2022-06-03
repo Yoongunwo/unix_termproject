@@ -17,12 +17,13 @@ void create_music_titles(FILE* stream) {
 		for(int i=0; i<atoi(num_of_song); i++){
 			char* music = (char*)malloc(sizeof(char));
 			fgets(title_of_song, MAX_TITLE_SIZE, stream);
-			if(i == atoi(num_of_song)-1) strcpy(music, title_of_song);
-			else strncpy(music, title_of_song, strlen(title_of_song)-1);
+            if(title_of_song[strlen(title_of_song)-1] == '\n')
+                title_of_song[strlen(title_of_song)-1] ='\0';
+            strcpy(music,title_of_song);
 			append_left(MAX_TITLE_SIZE, music);
 		}
+		return;
 	}
-	return;
 }
 
 
@@ -33,8 +34,8 @@ void write_file(char* file_name) {
 	}	
 	else{
 		print_file(fp);
+		fclose(fp);
 	}
-	fclose(fp);
 	return;
 }
 
@@ -46,57 +47,8 @@ void read_file(char* file_name) {
 		printf("Can't Find File!\n");
 		return;
 	}
-
 	else{
-		int num_of_song = -1;
-		char* title_of_song[MAX_TITLE_SIZE] = {0};
-		fscanf(fp, "%d\n", &num_of_song);
-
-		// If file is empty
-		if(num_of_song == -1){
-			printf("Empty File!\n");
-			return;
-		}
-
-		for(int i=0; i<num_of_song; i++){
-			*(title_of_song + i) = (char*)malloc(sizeof(char*));
-			fgets(title_of_song[i], MAX_TITLE_SIZE, fp); 
-		}
-
-		// if I have to control the command(player),
-		int command_num = -1;
-		char* command[MAX_TITLE_SIZE] = {0};
-		fscanf(fp, "%d\n", &command_num);
-
-		if(command_num == -1){
-			printf("command is empty!\n");
-		}
-		
-		for(int i=0; i<command_num; i++){
-			*(command + i) = (char*)malloc(sizeof(char*));
-			fgets(command[i], MAX_TITLE_SIZE, fp);
-		}
-
-		for (int i=0; i<num_of_song; i++){
-			printf("%s", title_of_song[i]);
-			free(*(title_of_song+i));
-		}
-
-		for (int i=0; i<command_num; i++){
-			printf("%s", command[i]);
-			free(*(command + i));
-		}
-
+		create_music_titles(fp);
 		fclose(fp);
-		return;
-
-	}
-
+	}	
 }
-
-/*
-int main(){
-	FILE* fp = fopen("Text.txt", "r");
-	create_music_titles(fp);
-}
-*/
