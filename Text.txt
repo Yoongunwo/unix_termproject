@@ -1,0 +1,6 @@
+5
+Hello
+Bye
+Unix
+Enemy
+Sunshine
