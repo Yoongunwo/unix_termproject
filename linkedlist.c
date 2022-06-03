@@ -113,32 +113,19 @@ Node* append(size_t n, char new_data[n]){
 }
 
 Node* delete_node(Node* cur_node){
-        Node* prevNode;
-        Node* nextNode;
-
-        prevNode = cur_node->prev;
-        nextNode = cur_node->next;
-        prevNode->next = nextNode;
-        nextNode->prev = prevNode;
-
-        cur_node->data = NULL;
-        cur_node->next = NULL;
-        cur_node->prev = NULL;
-	return prevNode;
+        cur_node->prev->next = cur_node->next;
+	cur_node->next->prev = cur_node->prev;
+	free(cur_node->data);
+	return _cur_node;
 }
 
 Node* delete(char* data){
-        Node* p = _head->next;
-	Node* temp;
-        while(p != NULL){
+        Node* p = first();
+        while(p != _tail){
                 if(strcmp(data, p->data) == 0){
-                        temp->next = p->next;
-			temp->prev = p->prev;
-			free(p);
-			p = temp->next;
+                        delete_node(p);
                 }
 		else{
-			temp = p;
 			p = p->next;
 		}
         }
