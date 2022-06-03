@@ -1,4 +1,4 @@
-
+#include <string.h>
 #include <stddef.h>
 #include "linkedlist.h"
 
@@ -38,15 +38,15 @@ void play_music(){
 }
 
 void print_file(FILE* stream){
-    if(!empty()){
-    		size_t num_of_song = size();
-		    fprintf(stream, "%d\n", num_of_song);
-		    Node* p = last();
-		    while(p != first()->prev){
-			      fprintf(stream, "%s\n", p->data);
-			      p = p->prev;
-		    }
-	  }
+	if(!empty()){
+		size_t num_of_song = size();
+		fprintf(stream, "%ld\n", num_of_song);
+		Node* p = last();
+		while(p != first()->prev){
+			fprintf(stream, "%s\n", p->data);
+			p = p->prev;
+		}
+	}
 }
 
 void clear(){
