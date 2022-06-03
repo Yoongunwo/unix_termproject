@@ -6,27 +6,20 @@
 
 
 void create_music_titles(FILE* stream) {
-	char num_of_song = fgetc(stream) - 30;
-	if (feof(stream)) return;
+	char* num_of_song;
+	fgets(num_of_song, MAX_TITLE_SIZE, stream);
+	
+	if(feof(stream)!=0) return;
 	else{
-		char* title_of_song[MAX_TITLE_SIZE] = {0};
+		char title_of_song[MAX_TITLE_SIZE];
 		
-		// \n 제거
-		char trash_value[2];		
-		fgets(trash_value, MAX_TITLE_SIZE, stream);
-
-		for(int i=0; i<num_of_song; i++){
-			*(title_of_song + i) = (char*)malloc(sizeof(char*));
-			fgets(title_of_song[i], MAX_TITLE_SIZE, stream); 
-			append_left(MAX_TITLE_SIZE, title_of_song[i]);
+		for(int i=0; i<atoi(num_of_song); i++){
+			char* music = (char*)malloc(sizeof(char));
+			fgets(title_of_song, MAX_TITLE_SIZE, stream);
+			if(i == atoi(num_of_song)-1) strcpy(music, title_of_song);
+			else strncpy(music, title_of_song, strlen(title_of_song)-1);
+			append_left(MAX_TITLE_SIZE, music);
 		}
-
-		// Check title_of_song and free dynamic alloc
-		for (int i=0; i<num_of_song; i++){
-			printf("%s", title_of_song[i]);
-			free(*(title_of_song+i));
-		}
-		return;
 	}
 	return;
 }
