@@ -7,7 +7,7 @@
 extern Node* _cur_node;
 
 int main(){
-	char* file_name = "text.txt";
+	char* file_name = "Text.txt";
 
 	int start_music_num;
 	scanf("%d", &start_music_num);
@@ -61,14 +61,7 @@ int main(){
 			exit(1);
 		}
 		else if(strcmp(command, "load") ==0){
-			FILE* fp = fopen(file_name, "r");
-			if(fp == NULL){
-				printf("Can't Find File!\n");
-			}
-			else {
-				create_music_titles(fp);
-				fclose(fp);
-			}
+			read_file(file_name);
 		}
 		else if(strcmp(command, "save") ==0)
 		{

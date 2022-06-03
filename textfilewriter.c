@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "linkedlist.h"
 
 #define MAX_TITLE_SIZE 50 

@@ -155,7 +155,7 @@ Node* delete(char* data){
 Node* get_node(size_t index){
         Node* p = first();
       	int find_node = 1;
-	      while(finde_node != index){
+	      while(find_node != index){
 		          p = p->next;
 		          ++find_node;
 	      }
