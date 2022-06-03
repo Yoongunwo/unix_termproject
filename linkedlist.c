@@ -3,16 +3,12 @@
 #include "linkedlist.h"
 
 static Node* _head = NULL;
-
 static Node* _tail = NULL;
-
 static Node* _cur_node = NULL;
 
 bool empty(){
-        Node* p = _head;
-
-        if(p->next == NULL) return true;
-        else return false;
+        if(size() > 0) return false;
+        return true;
 }
 
 size_t size(){
@@ -42,21 +38,15 @@ void play_music(){
 }
 
 void print_file(FILE* stream){
-        int size;
-        char* buffer;
-        fseek(stream, 0, SEEK_END);
-        size = ftell(stream);
-        buffer = malloc(size + 1);
-        memset(buffer, 0, size + 1);
-
-
-//        while(fgets(file_buff, size + 1, stream) != NULL){
-//                printf("%s", buffer);
-//                memset(buffer, 0, size + 1);
-//        }
-
-        fclose(stream);
-        free(buffer);
+    if(!empty()){
+    		size_t num_of_song = size();
+		    fprintf(stream, "%d\n", num_of_song);
+		    Node* p = last();
+		    while(p != first()->prev){
+			      fprintf(stream, "%s\n", p->data);
+			      p = p->prev;
+		    }
+	  }
 }
 
 void clear(){
@@ -155,7 +145,7 @@ Node* delete(char* data){
 Node* get_node(size_t index){
         Node* p = first();
       	int find_node = 1;
-	      while(finde_node != index){
+	      while(find_node != index){
 		          p = p->next;
 		          ++find_node;
 	      }
