@@ -30,12 +30,16 @@ void print(){
         Node* p = _head;
 
 	printf("LinkedList [ ");
-        while(p != NULL){
-		p = p->next;
-                printf("%s ",p->data);
-        }
+        while(p -> next != _tail){
+                printf("%s ",p->next->data);
+        	p = p->next;
+	}
 	printf("]\n");
 
+}
+
+void play_music(){
+	printf("%s is now playing!\n", _cur_node->data);
 }
 
 void print_file(FILE* stream){
@@ -182,17 +186,18 @@ Node* last(){
 }
 
 Node* next(){
-        Node* p = _cur_node;
-
-	if(p->next != NULL) p = p->next;
-
-        return p;
+	if(_cur_node->next == _tail){
+		return _cur_node;
+	}
+	else _cur_node = _cur_node -> next;
+	return _cur_node;
 }
 
 Node* prev(){
-        Node* p = _cur_node;
-
-	if(p->prev != NULL) p = p->prev;
-        return p;
+	if(_cur_node->prev == _head){
+		return _cur_node;
+	}
+	else _cur_node = _cur_node->prev;
+	return _cur_node;
 }
 

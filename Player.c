@@ -26,7 +26,7 @@ int main(){
 		scanf("%s", command);
 
 		if(strcmp(command, "add") ==0){
-			char music_name[20];
+			char* music_name= (char*)malloc(sizeof(char));
 			scanf("%s", music_name);
 			append_left(20, music_name);
 		}
@@ -36,7 +36,7 @@ int main(){
 			delete(del_music);
 		}
 		else if(strcmp(command, "list") ==0){
-	
+			print();	
 		}
 		else if(strcmp(command, "next") ==0){
 			next();
@@ -50,7 +50,7 @@ int main(){
 			get_node(location);
 		}
 		else if(strcmp(command, "play") ==0){
-			print();
+			play_music();
 		}
 		else if(strcmp(command, "clear") ==0){
 			clear();

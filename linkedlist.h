@@ -14,6 +14,8 @@ size_t size();
 
 void print();
 
+void play_music();
+
 void print_file(FILE* stream);
 
 void clear();
