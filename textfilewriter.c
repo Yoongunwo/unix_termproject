@@ -32,16 +32,9 @@ void write_file(char* file_name) {
 		printf("Can't Find File!\n");
 	}	
 	else{
-		size_t num_of_song = size();
-		fprintf("%zu\n", num_of_song);
-		Node* p = first();
-        while(p -> next != last()){
-			fputs(p->next->data, fp);
-			fputs("\n", fp);
-        	p = p->next;
-		}
-		fclose(fp);
+		print_file(fp);
 	}
+	fclose(fp);
 	return;
 }
 
