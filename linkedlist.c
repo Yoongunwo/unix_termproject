@@ -34,19 +34,15 @@ void print(){
 }
 
 void print_file(FILE* stream){
-        int size;
-        char* buffer;
-        fseek(stream, 0, SEEK_END);
-        size = ftell(stream);
-        buffer = malloc(size + 1);
-        memset(buffer, 0, size + 1);
-
-        while(fgets(file_buff, size + 1, stream) != NULL){
-                printf("%s", buffer);
-                memset(buffer, 0, size + 1);
-        }
-        fclose(stream);
-        free(buffer);
+        if(!empty()){
+		size_t num_of_song = size();
+		fprintf(stream, "%d\n", num_of_song);
+		Node* p = last();
+		while(p != first()->prev){
+			fprintf(stream, "%s\n", p->data);
+			p = p->prev;
+		}
+	}
 }
 
 void clear(){
