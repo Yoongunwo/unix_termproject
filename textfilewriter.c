@@ -37,6 +37,7 @@ void write_file(char* file_name) {
 			fputs(p->next->data, fp);
         	p = p->next;
 		}
+		fclose(fp);
 	}
 	return;
 }
