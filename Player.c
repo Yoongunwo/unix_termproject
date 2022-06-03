@@ -13,7 +13,7 @@ int main(){
 	scanf("%d", &start_music_num);
 
 	for(int i=0; i<start_music_num; i++){ //초기 음악 추가 append_left
-		char music_name[20];
+		char* music_name = (char*)malloc(sizeof(char));
 		scanf("%s", music_name);
 		append_left(20, music_name);
 	}	

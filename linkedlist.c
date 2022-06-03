@@ -46,10 +46,10 @@ void print_file(FILE* stream){
         buffer = malloc(size + 1);
         memset(buffer, 0, size + 1);
 
-        while(fgets(file_buff, size + 1, stream) != NULL){
-                printf("%s", buffer);
-                memset(buffer, 0, size + 1);
-        }
+//        while(fgets(file_buff, size + 1, stream) != NULL){
+//                printf("%s", buffer);
+//                memset(buffer, 0, size + 1);
+//        }
         fclose(stream);
         free(buffer);
 }
@@ -74,23 +74,28 @@ void clear(){
 }
 
 Node* append_left(size_t n, char new_data[n]){
-	Node* newNode = (Node*)malloc(sizeof(Node));\
-	newNode->data = new_data;
-	newNode->prev = _head;
-	_head->next = newNode;
+    Node* newNode = (Node*)malloc(sizeof(Node));
 
-	if(size() == 0){
-        	newNode->next = _tail;
-		_tail->prev = newNode;
-	}
-	else{
-		Node* nextNode;
-		nextNode = _head->next;
-		nextNode->prev = newNode;
-		newNode->next = nextNode;
-	}
-	_cur_node = newNode;
-        return _cur_node;
+    if(_tail == NULL){
+        _tail = (Node*)malloc(sizeof(Node));
+        _head = (Node*)malloc(sizeof(Node));
+        _cur_node = (Node*)malloc(sizeof(Node));
+        _cur_node = newNode;
+        _tail->prev = newNode;
+        newNode->next = _tail;
+        _head->next = newNode;
+        _head->next->prev = _head;
+
+    }
+    else{
+        newNode->next = _head->next;
+        _head->next->prev = newNode;
+        newNode->prev = _head;
+        newNode->prev->next = newNode;
+    }
+    newNode->data = new_data;
+    _cur_node = newNode;
+    return _cur_node;
 }
 
 Node* insert_after(Node* cur_node, Node* new_node){
