@@ -8,9 +8,8 @@ static Node* _tail = NULL;
 static Node* _cur_node = NULL;
 
 bool empty(){
-        Node* p = _head;
-        if(p->next == NULL) return True;
-        else return False;
+        if(size() > 0) return false;
+        return true;
 }
 
 size_t size(){
